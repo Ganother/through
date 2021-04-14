@@ -1,0 +1,34 @@
+type Dialog {
+    _id: String
+    level: Int
+    context: [DialogItem]
+    charactor: [String]
+    state: Int
+}
+
+type DialogItem {
+    name: String
+    text: String
+}
+
+input DialogItemInput{
+    name: String
+    text: String
+}
+
+input DialogInput{
+    level: Int!
+    context: [DialogItemInput]!
+    charactor: [String]!
+    secret: String
+}
+
+type Query {
+  dialogDetail(level: Int): Dialog
+  dialogList(state: Int): [Dialog]
+}
+
+type Mutation {
+    addDialog(input: DialogInput) : Dialog
+    updateDialog(input: DialogInput): Dialog
+}

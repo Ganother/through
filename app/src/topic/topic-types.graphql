@@ -1,0 +1,24 @@
+type Topic {
+    _id: String
+    title: String
+    desc: String
+    state: Int
+}
+
+input TopicInput{
+  _id: String
+   title: String
+   desc: String
+   state: Int
+   secret: String
+}
+
+type Query {
+  topicList(state: Int): [Topic]
+  topicDetail(id: String): Topic
+}
+
+type Mutation {
+  addTopic(input: TopicInput): Topic
+  updateTopic(input: TopicInput): Topic
+}

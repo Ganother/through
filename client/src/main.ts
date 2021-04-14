@@ -1,0 +1,31 @@
+import { createApp } from 'vue'
+import App from './App.vue'
+import api from './api'
+import { createRouter, createWebHashHistory } from 'vue-router'
+import routes from './routes'
+import elementPlus from './element'
+import VueQuillEditor from 'vue-quill-editor'
+
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+async function initApp() {
+  await api.init()
+  const router = createRouter({ routes, history: createWebHashHistory() })
+  const app = createApp(App).use(router)
+  elementPlus.components.forEach(component => {
+    app.component(component.name, component)
+  })
+
+  elementPlus.plugins.forEach(plugin => {
+    app.use(plugin)
+  })
+
+  app.use(VueQuillEditor)
+
+  app.mount('#app')
+}
+initApp()
+
