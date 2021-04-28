@@ -1,14 +1,16 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import styleImport from 'vite-plugin-style-import';
-
+import { vueI18nPlugin } from './CustomBlockPlugin'
 
 export default defineConfig({
   root: 'client',
-  plugins: [vue(), styleImport({
+  plugins: [vue(), vueI18nPlugin, styleImport({
     libs: [
       {
         libraryName: 'element-plus',
+        esModule: true,
+        ensureStyleFile: true,
         resolveStyle: (name) => {
           return `element-plus/lib/theme-chalk/${name}.css`;
         },
@@ -17,8 +19,12 @@ export default defineConfig({
         },
       },
     ],
-  }),],
+  })],
   server: {
+    hmr: {
+      protocol: 'ws',
+      host: 'localhost'
+    },
     proxy: {
       // 选项写法
       '/api': {

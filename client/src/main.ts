@@ -4,13 +4,8 @@ import api from './api'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import routes from './routes'
 import elementPlus from './element'
-import VueQuillEditor from 'vue-quill-editor'
-
-// require styles
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
-
+import Cpop from './plugins/c-popup/index'
+import './assets/_reset.scss'
 async function initApp() {
   await api.init()
   const router = createRouter({ routes, history: createWebHashHistory() })
@@ -23,9 +18,10 @@ async function initApp() {
     app.use(plugin)
   })
 
-  app.use(VueQuillEditor)
+  app.use(Cpop)
+
+  // app.use(VueQuillEditor)
 
   app.mount('#app')
 }
 initApp()
-

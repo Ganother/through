@@ -1,7 +1,8 @@
 <template>
   <section class="start-wrapper">
-    <div class="btn" @click="toStory">故事</div>
-    <div class="btn" @click="toThrough">穿行</div>
+    <img src="../assets/logo.png" alt="" class="logo" />
+    <!-- <div class="btn" @click="toStory">故事</div> -->
+    <router-link class="main-btn" :to="{name: 'scene-through'}">穿行</router-link>
   </section>
 </template>
 
@@ -27,8 +28,16 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-a {
-  color: #42b983;
+<style lang="scss">
+.start-wrapper {
+  .logo {
+    width: 127.5px;
+    height: 60px;
+    display: block;
+    margin: 120px auto 40px;
+  }
+  .main-btn {
+    display: block;
+  }
 }
 </style>

@@ -2,7 +2,7 @@
   <section class="through-wrapper">
     <div class="main-title">穿行</div>
     <div class="topic-title">目的地#{{ topic.title }}#</div>
-    <div class="add-article" @click="addArticle">添加路程</div>
+    <router-link class="main-btn" :to="{name:'scene-edit', query: {'topicId': topic._id}}">添加路程</router-link>
   </section>
 </template>
 
@@ -22,7 +22,7 @@ export default defineComponent({
     });
     const articles: Ref<Article[]> = ref([]);
     function getTopic() {
-      api.topic.getTopicList({ state: stateConfig.online }).then((data) => {
+      api.topic.getTopicList({ state: stateConfig.online }).then((data:any) => {
         if (data.data.topicList && data.data.topicList.length) {
           const t = data.data.topicList[0];
           topic._id = t._id;
@@ -32,7 +32,7 @@ export default defineComponent({
       });
     }
     function getArticles() {
-      api.article.getArticleList({ state: stateConfig.online,  }).then((data) => {
+      api.article.getArticleList({ state: stateConfig.online,  }).then((data:any) => {
         if (data.data.articleList && data.data.articleList.length) {
           articles.value = data.data.articleList
         }
@@ -51,8 +51,12 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-a {
-  color: #42b983;
-}
+<style lang="scss">
+  .topic-title{
+    text-align: center;
+  }
+  .main-btn{
+    margin-top: 20px;
+    display: block;
+  }
 </style>

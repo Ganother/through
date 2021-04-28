@@ -27,7 +27,7 @@ export class ArticleResolver {
 
 
     @Mutation('addArticle')
-    @auth()
+    @auth({errorPass: true})
     async addArticle(@Args('input') article: ArticleInput) {
         return this.articleService.addArticle(article)
     }

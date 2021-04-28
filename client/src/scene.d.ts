@@ -17,3 +17,4 @@ declare namespace Scene {
     [key: string]: Scene.config
   }
 }
+

@@ -1,64 +1,103 @@
 <template>
   <section class="scene-wrapper">
-    <!-- <keep-alive :include="needKeepScene.join(',')"> -->
-      <component
-        v-if="currentScene"
-        :is="currentScene"
-        :params="params.value"
-      ></component>
-    <!-- </keep-alive> -->
+    <header v-show="needHeader" :class="['main-header', {'header-nav-open': navShow}]">
+      <img src="../assets/logo.png" alt="" class="main-logo" />
+      <i class="nav-btn" @click="toggleNav"></i>432434232333333333
+      <div class="nav-content"></div>
+    </header>
+    <router-view></router-view>
   </section>
 </template>
 
 <script lang="ts">
 /// <reference path="../scene.d.ts" />
-import { ref, defineComponent, onMounted, Ref, reactive } from 'vue';
-import Start from './Start.vue';
-import Story from './Story.vue';
-import Through from './Through.vue';
-import Edit from './Edit.vue';
-import SceneManager from './manager';
-import SceneList from './list';
+import { ref, defineComponent, onMounted, Ref, reactive, computed } from 'vue';
+import { useRoute } from 'vue-router';
 export default defineComponent({
   name: 'IndexScene',
   props: {},
-  components: { Start, Story, Through, Edit },
+  components: {},
   setup: () => {
-    const currentScene: Ref<string> = ref('');
-    const needKeepScene: Ref<string[]> = ref([]);
-    const params = reactive<any>({ value: '' });
-    onMounted(() => {
-      SceneManager.instance.bindMainScene({
-        onLoadOne(scene: Scene.config, data?: any): void {
-          currentScene.value = scene.name;
-          if (data) {
-            params.value = data;
-          } else {
-            params.value = {};
-          }
-        },
-        onPreloadOne() {},
-        onRecOne() {},
-      });
-      // 注册场景
-      for (const scene of SceneList) {
-        if (scene.keepAlive) {
-          needKeepScene.value.push(scene.name);
-          console.log(needKeepScene);
-        }
-        SceneManager.instance.register(scene);
-      }
-      SceneManager.instance.loadScene('Start');
-    });
-    console.log(params)
-    return { currentScene, needKeepScene, params };
+    const routes = useRoute();
+    const navShow = ref(false)
+    const needHeader = computed(() => {
+      return (routes.name as string).indexOf('start') == -1
+    })
+    return { needHeader, navShow };
   },
-  mounted() {},
+  mounted() { },
+  methods: {
+    toggleNav() {
+      this.navShow = !this.navShow
+    }
+  }
 });
 </script>
 
-<style scoped>
-a {
-  color: #42b983;
+<style lang="scss">
+.scene-wrapper {
+  max-width: 640px;
+  padding: 0 40px;
+  margin: 0 auto;
+}
+.main-header {
+  height: 60px;
+  padding: 20px 0;
+  position: relative;
+}
+.main-logo {
+  width: 127.5px;
+  height: 60px;
+  display: block;
+}
+.main-btn {
+  height: 40px;
+  font-size: 14px;
+  line-height: 40px;
+  background: #18191b;
+  color: #fdfdfd;
+  text-align: center;
+}
+.nav-btn {
+  position: absolute;
+  right: 0;
+  top: 30px;
+  height: 40px;
+  color: #18191b;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    margin-top: -1px;
+    transform: translate(0, -3px) rotate(0);
+    right: 0;
+    width: 20px;
+    height: 2px;
+    background: currentColor;
+    transition: all 0.3s ease-in-out;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    margin-top: -1px;
+    right: 0;
+    transform: translate(0, 3px) rotate(0);
+    width: 20px;
+    height: 2px;
+    background: currentColor;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+.header-nav-open {
+  .nav-btn {
+    &:before {
+      transform: translate(0, 0) rotate(45deg);
+    }
+    &:after {
+      transform: translate(0, 0) rotate(-45deg);
+    }
+  }
 }
 </style>

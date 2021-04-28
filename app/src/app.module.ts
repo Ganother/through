@@ -13,17 +13,17 @@ import { ArticleModule } from './article/article.module';
 import { DialogModule } from './dialog/dialog.module';
 import { TopicController } from './topic/topic.controller';
 import { TopicModule } from './topic/topic.module';
-
+const rootPath = process.cwd()
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client'),
+      rootPath: join(rootPath, 'app/client'),
       exclude: ['/api*', '/graphql*'],
     }),
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
       definitions: {
-        path: join(__dirname, '../../../../graphql.ts'),
+        path: join(rootPath, './graphql.ts'),
       },
       formatError: (err) => {
         console.log(err)

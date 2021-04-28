@@ -38,13 +38,13 @@ export default defineComponent({
     const secret = ref('');
     const stateText = computed(() => {
       for (const key in stateConfig) {
-        if (stateConfig[key] == state.value) {
+        if (stateConfig[key as keyof typeof stateConfig] == state.value) {
           return key;
         }
       }
       return '暂无';
     });
-    function getData(data) {
+    function getData(data:any) {
       title.value = data.title;
       context.value = data.context;
       user.value = data.user;
@@ -60,17 +60,17 @@ export default defineComponent({
     return { title, context, user, state, stateText, secret, getData };
   },
   methods: {
-    changeState(state) {
+    changeState(state:number) {
       const id = this.$route.params.id;
       const loadingInstance = ElLoading.service({ fullscreen: true });
       api.article
         .updateArticle({
           input: { id, state, secret: this.secret },
         })
-        .then((data) => {
+        .then((data:any) => {
           this.getData(data.data.updateArticle);
           loadingInstance.close();
-        }).catch((err) => {
+        }).catch((err:any) => {
              loadingInstance.close();
         });
     },

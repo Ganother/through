@@ -99,8 +99,8 @@ export default defineComponent({
     const dialogs = ref([]);
     const topics = ref([]);
     const curTab = ref('article');
-    function getData(key) {
-      let dataApi, dataSet, oriKey;
+    function getData(key: string) {
+      let dataApi, dataSet:any, oriKey:any;
       if (key == 'article') {
         dataApi = api.article.getArticleList;
         dataSet = articles;
@@ -137,7 +137,7 @@ export default defineComponent({
             this.topicInput,
           ),
         })
-        .then((data) => {
+        .then((data:any) => {
           console.log(data);
         });
     },
