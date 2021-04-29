@@ -11,8 +11,18 @@ export class ArticleService {
 
     }
 
-    async getArticle(id: string) {
-        return await this.articleModel.findById(id)
+    async getArticle(state: number, id: string) {
+        const query: any = {}
+        if (!isNaN(state)) {
+            query.state = state
+        }
+        query._id = id
+        const result = await this.articleModel.find(query).exec()
+        if (result.length) {
+            return result[0]
+        } else {
+            throw new ApolloError('没有这个id的文', '-3001')
+        }
     }
 
     async getArticleList(state: number, topicID: string) {

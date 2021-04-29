@@ -16,8 +16,8 @@ export class ArticleResolver {
     ) { }
 
     @Query('articleDetail')
-    async getDetail(@Args('id') id: string) {
-        return this.articleService.getArticle(id)
+    async getDetail(@Args('id') id: string, @Args('state') state: number) {
+        return this.articleService.getArticle(state, id)
     }
 
     @Query('articleList')

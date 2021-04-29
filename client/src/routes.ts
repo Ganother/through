@@ -1,8 +1,9 @@
 import Scene from './scenes/index.vue'
-import Start from './scenes/Start.vue'
-import Story from './scenes/Story.vue'
-import Through from './scenes/Through.vue'
-import Edit from './scenes/Edit.vue'
+import Start from './scenes/start.vue'
+import Story from './scenes/story.vue'
+import Through from './scenes/through.vue'
+import Edit from './scenes/edit.vue'
+import Detail from './scenes/detail.vue'
 import Managers from './managers/index.vue'
 import ManagersArticleDetail from './managers/articleDetail.vue'
 import ManagersDialogDetail from './managers/dialogDetail.vue'
@@ -15,7 +16,8 @@ const routes = [
       {path: 'start', name:'scene-start', component: Start},
       {path: 'story', name:'scene-story', component: Story},
       {path: 'through', name:'scene-through', component: Through},
-      {path: 'edit', name:'scene-edit', component: Edit}
+      {path: 'edit', name:'scene-edit', component: Edit},
+      {path: 'detail', name:'scene-detail', component: Detail}
     ],
     component: Scene,
   },

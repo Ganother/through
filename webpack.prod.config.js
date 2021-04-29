@@ -10,13 +10,13 @@ const config = {
   entry: './client/src/main.ts',
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, './app/client')
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'Hot Module Replacement',
-      template: 'index.html'
+      template: './client/index.html'
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -41,9 +41,27 @@ const config = {
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
-            presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env'],
+            plugins: [
+              [
+                "import",
+                {
+                  libraryName: 'element-plus',
+                  customStyleName: (name) => {
+                    return `element-plus/lib/theme-chalk/${name}.css`;
+                  },
+                },
+              ],
+            ]
           }
         }],
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'fonts/[name].[ext]',
+        },
       },
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
@@ -100,6 +118,6 @@ const config = {
 };
 
 module.exports = (env) => {
-  console.log(`当前执行${env.mode}模式`);
+  console.log(`当前执行${env}模式`);
   return config;
 }

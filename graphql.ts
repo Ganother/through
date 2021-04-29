@@ -11,7 +11,7 @@ export interface ArticleInput {
     id?: string;
     user?: string;
     context?: string;
-    secret: string;
+    secret?: string;
     title?: string;
     topicID?: string;
     state?: number;
@@ -51,7 +51,7 @@ export interface Article {
 }
 
 export interface IQuery {
-    articleDetail(id: string): Article | Promise<Article>;
+    articleDetail(id: string, state?: number): Article | Promise<Article>;
     articleList(state?: number, topic?: string): Article[] | Promise<Article[]>;
     dialogDetail(level?: number): Dialog | Promise<Dialog>;
     dialogList(state?: number): Dialog[] | Promise<Dialog[]>;

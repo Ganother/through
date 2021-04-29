@@ -2,7 +2,7 @@
   <section class="scene-wrapper">
     <header v-show="needHeader" :class="['main-header', {'header-nav-open': navShow}]">
       <img src="../assets/logo.png" alt="" class="main-logo" />
-      <i class="nav-btn" @click="toggleNav"></i>432434232333333333
+      <i class="nav-btn" @click="toggleNav"></i>
       <div class="nav-content"></div>
     </header>
     <router-view></router-view>

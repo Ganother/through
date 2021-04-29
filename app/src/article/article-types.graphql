@@ -12,14 +12,14 @@ input ArticleInput{
     id: String
     user: String
     context: String
-    secret: String!
+    secret: String
     title: String
     topicID: String
     state: Int
 }
 
 type Query {
-  articleDetail(id: String!): Article
+  articleDetail(id: String!,state: Int): Article
   articleList(state: Int, topic: String): [Article]
 }
 

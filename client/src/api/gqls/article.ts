@@ -4,6 +4,7 @@ export default {
       articleList(topic: $topic, state: $state) {
         _id
         user
+        title
         context
         state
       }
@@ -11,21 +12,23 @@ export default {
     type: 'query'
   },
   getArticleDetail: {
-    gql: `query ARTICLE_DETAIL($id: String!){
-      articleDetail(id: $id) {
+    gql: `query ARTICLE_DETAIL($state: Int, $id: String!){
+      articleDetail(state: $state, id: $id) {
         _id
         user
+        title
         context
         state
       }
     }`,
     type: 'query'
   },
-  addAricle: {
+  addArticle: {
     gql: ` mutation ADD_ARTICLE($input: ArticleInput){
       addArticle(input: $input){ 
         _id
         user
+        title
         context
         state
       }

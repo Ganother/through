@@ -69,6 +69,7 @@ const plugins = [
   ElMessage,
 ]
 
+import 'element-plus/packages/theme-chalk/src/base.scss'
 
 export default {
   components,

@@ -18,13 +18,14 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 // const files = import.meta.glob('./gqls/*.ts')
-import * as gqls_1 from './gqls/article'
-import * as gqls_2 from './gqls/topic'
-const files = {
-  './gqls/article': gqls_1,
-  './gqls/topic': gqls_2
-}
-// const files =  (<any>require).context("./gqls", false, /\.ts$/);
+// import * as gqls_1 from './gqls/article'
+// import * as gqls_2 from './gqls/topic'
+// const files = {
+//   './gqls/article': gqls_1,
+//   './gqls/topic': gqls_2
+// }
+const files = (<any>require).context("./gqls", false, /\.ts$/);
+console.log(files)
 const m: Module = {}
 enum Method {
   query = 'query',
@@ -70,11 +71,11 @@ m.init = () => new Promise(async (resolve, reject) => {
       },
     },
   });
-  for (const key in files) {
-    // console.log(files, files[key])
-    const inters = files[key as keyof typeof files]
+  files.keys().forEach((key: any) => {
+    // const inters = files[key as keyof typeof files]
+    // console.log(inters)
+    const inters = files(key).default
     console.log(inters)
-    // const inters = files[key].default
     const map: Module = {}
     const k = key.replace(/(\.\/|\.ts|gqls\/)/g, "")
     m[k] = JSON.parse(JSON.stringify(inters))
@@ -87,7 +88,7 @@ m.init = () => new Promise(async (resolve, reject) => {
         }
       })(gql, type)
     }
-  }
+  });
   resolve(null)
 })
 

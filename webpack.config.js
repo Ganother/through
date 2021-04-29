@@ -19,7 +19,11 @@ const config = {
         open: true,
         // hotOnly: true,
         compress: true,
-        overlay: true
+        overlay: true,
+        proxy: {
+            '/api': 'http://localhost:2333/api',
+            '/graphql': 'http://localhost:2333/graphql'
+        },
     },
     watchOptions: {
         ignored: /node_modules/
@@ -46,24 +50,41 @@ const config = {
                         // cacheDirectory: true,
                         presets: ['@babel/preset-env'],
                         plugins: [
-                            '@babel/plugin-transform-runtime'
+                            '@babel/plugin-transform-runtime',
+                            [
+                                "import",
+                                {
+                                    libraryName: 'element-plus',
+                                    customStyleName: (name) => {
+                                        console.log(name)
+                                        return `element-plus/lib/theme-chalk/${name}.css`;
+                                    },
+                                },
+                            ],
                         ]
                     }
                 }],
             },
             {
+                test: /\.(ttf|eot|woff|woff2)$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'fonts/[name].[ext]',
+                },
+            },
+            {
                 test: /\.(gif|png|jpe?g|svg)$/i,
                 use: [
-                  'file-loader',
-                  {
-                    loader: 'image-webpack-loader',
-                    options: {
-                      bypassOnDebug: true, // webpack@1.x
-                      disable: true, // webpack@2.x and newer
+                    'file-loader',
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            bypassOnDebug: true, // webpack@1.x
+                            disable: true, // webpack@2.x and newer
+                        },
                     },
-                  },
                 ],
-              },
+            },
             {
                 test: /\.ts$/,
                 exclude: /node_modules/,
@@ -106,6 +127,6 @@ const config = {
 
 
 module.exports = (env) => {
-    console.log(`当前执行${env.mode}模式`);
+    console.log(`当前执行${env}模式`);
     return config;
 }
