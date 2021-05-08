@@ -7,16 +7,18 @@
       :to="{ name: 'scene-edit', query: { topicId: topic._id } }"
       >添加路程</router-link
     >
-    <div class="article-item" v-for="article in articles" :key="article._id">
-      <div class="article-title">
-        <span class="core-text">{{ article.title }}</span>
+    <div class="article-list">
+      <div class="article-item" v-for="article in articles" :key="article._id">
+        <div class="article-title">
+          <span class="core-text">{{ article.title }}</span>
+        </div>
+        <div class="article-desc" v-html="article.context"></div>
+        <router-link
+          class="to-detail"
+          :to="{ name: 'scene-detail', query: { id: article._id } }"
+          >OPEN >>
+        </router-link>
       </div>
-      <div class="article-desc" v-html="article.context"></div>
-      <router-link
-        class="to-detail"
-        :to="{ name: 'scene-detail', query: { id: article._id } }"
-        >OPEN >>
-      </router-link>
     </div>
   </section>
 </template>
@@ -67,6 +69,24 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@keyframes slideUp {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .topic-title {
   text-align: center;
   margin-top: 5px;
@@ -76,11 +96,20 @@ export default defineComponent({
   display: block;
 }
 .article-item {
-  margin-top: 20px;
+  margin: 20px 0 40px;
+  animation: opacity 1.6s ease-in-out;
+  animation-fill-mode: both;
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      animation: slideUp .4s ease-in-out;
+      animation-delay: #{($i)*0.4}s;
+      animation-fill-mode: both;
+    }
+  }
 }
 .article-title {
   line-height: 40px;
-  padding-top: 10px;
+  padding-top: 5px;
   font-size: 16px;
   margin-bottom: 10px;
   position: relative;
@@ -99,12 +128,14 @@ export default defineComponent({
   font-size: 14px;
   text-indent: 2em;
   color: #52555a;
+  max-height: 42px;
+  overflow: hidden;
 }
 .to-detail {
   display: block;
   text-align: left;
   margin-top: 20px;
-  color: #E9432A;
+  color: #e9432a;
   font-size: 14px;
 }
 </style>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

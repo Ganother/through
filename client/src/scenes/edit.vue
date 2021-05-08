@@ -3,6 +3,14 @@
     <div class="main-title">添加路程</div>
     <input
       type="text"
+      name="secret"
+      id="secret"
+      v-model="secret"
+      class="short-input title-input"
+      placeholder="吟唱正确的咒语，免于审核"
+    />
+    <input
+      type="text"
       name="title"
       id="title"
       v-model="title"
@@ -34,7 +42,8 @@ export default defineComponent({
   data() {
     return {
       title: '',
-      user: ''
+      user: '',
+      secret: ''
     };
   },
   setup: (props: any) => {
@@ -63,6 +72,10 @@ export default defineComponent({
     onEditorFocus() { },
     onEditorReady() { },
     submit() {
+      // if (!this.secret) {
+      //   (this as any).$cpop({ title: '提示', desc: '请先吟唱咒语' })
+      //   return;
+      // }
       if (!this.title) {
         (this as any).$cpop({ title: '提示', desc: '请输入标题' })
         return;
@@ -80,11 +93,19 @@ export default defineComponent({
         input: {
           title: this.title,
           user: this.user,
+          secret: this.secret,
           context: this.content,
-          topicID: this.$route.query.topicId
+          topicID: (this as any).$route.query.topicId
         }
       }).then((data: any) => {
-        // todo 跳转到详情页
+        console.log(data)
+        if (data.data.addArticle) {
+          (this as any).$cpop({ title: '提示', desc: '提交成功了，小王正在看看里面有没有奇怪的东西' })
+          this.$router.push({ name: 'scene-detail', query: { id: data.data.addArticle._id } })
+        } else {
+          (this as any).$cpop({ title: '提示', desc: '提交失败了，联系小王吧' })
+        }
+
       })
     }
   },

@@ -7,17 +7,23 @@ import Detail from './scenes/detail.vue'
 import Managers from './managers/index.vue'
 import ManagersArticleDetail from './managers/articleDetail.vue'
 import ManagersDialogDetail from './managers/dialogDetail.vue'
+import About from './scenes/about.vue'
 const routes = [
   {
     path: "/",
     name: "scene",
     redirect: '/start',
-    children:[
-      {path: 'start', name:'scene-start', component: Start},
-      {path: 'story', name:'scene-story', component: Story},
-      {path: 'through', name:'scene-through', component: Through},
-      {path: 'edit', name:'scene-edit', component: Edit},
-      {path: 'detail', name:'scene-detail', component: Detail}
+    children: [
+      { path: 'start', name: 'scene-start', component: Start },
+      { path: 'story', name: 'scene-story', component: Story },
+      { path: 'through', name: 'scene-through', component: Through },
+      { path: 'edit', name: 'scene-edit', component: Edit },
+      { path: 'detail', name: 'scene-detail', component: Detail },
+      {
+        path: "/about",
+        name: "about",
+        component: About,
+      },
     ],
     component: Scene,
   },
@@ -26,6 +32,7 @@ const routes = [
     name: "manager",
     component: Managers,
   },
+
   {
     path: "/manager/detail/article/:id",
     name: "manager-article-detail",

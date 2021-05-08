@@ -1,5 +1,6 @@
 <template>
   <section class="detail-wrapper">
+    <div class="error-message" v-show="erroring">文章审核中</div>
     <div class="main-title">{{ article.title }}</div>
     <div class="topic-title">{{ article.user }}</div>
     <div class="detail-context" v-html="article.context"></div>
@@ -18,6 +19,7 @@ export default defineComponent({
   props: {},
   setup: (props: any) => {
     const routes = useRoute();
+    const erroring = ref(false)
     let article = reactive<Article>({
       _id: '',
       title: '',
@@ -27,17 +29,21 @@ export default defineComponent({
     function getArticle() {
       api.article.getArticleDetail({ state: stateConfig.online, id: routes.query.id }).then((data: any) => {
         let detail
+        erroring.value = false
         if (detail = data.data.articleDetail) {
           article.title = detail.title
           article.context = detail.context
           article.user = detail.user
         }
+      }, (err: any) => {
+        erroring.value = true
+        console.log(err)
       });
     }
     onMounted(() => {
       getArticle();
     });
-    return { article };
+    return { article, erroring };
   },
   methods: {
     // addArticle() {
@@ -53,7 +59,7 @@ export default defineComponent({
   margin-top: 5px;
   .detail-context {
     text-align: left;
-      color: #52555a;
+    color: #52555a;
   }
 }
 </style>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

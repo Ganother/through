@@ -11,7 +11,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     graphQLErrors.forEach(({ message, locations, path }) =>
       console.log(
         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-      ),
+      ), 
     );
 
   if (networkError) console.log(`[Network error]: ${networkError}`);
@@ -46,10 +46,10 @@ m.fetch = <T extends Method>(gqlName: string, type: T, variables: any): Promise<
   }).then((data: any) => {
     resolve(data)
   }).catch((err: Error) => {
-    ElMessage({
-      message: err.message,
-      type: 'error'
-    })
+    // ElMessage({
+    //   message: err.message,
+    //   type: 'error'
+    // })
     reject(err)
   })
 })
