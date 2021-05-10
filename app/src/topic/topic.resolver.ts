@@ -6,7 +6,7 @@ import {
   Resolver,
   Subscription,
 } from '@nestjs/graphql';
-import { TopicService } from './Topic.service'
+import { TopicService } from './topic.service'
 import { Topic, TopicInput } from '../../../graphql'
 import { auth } from '../middleware/auth'
 @Resolver()
