@@ -21,8 +21,9 @@ const config = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/assets',
-          to: 'assets'
+          from: 'client/src/assets',
+          to: 'app/client/assets',
+          noErrorOnMissing: true
         },
       ]
     }),
@@ -84,7 +85,7 @@ const config = {
             loader: 'ts-loader',
             options: {
               // 指定特定的ts编译配置，为了区分脚本的ts配置
-              configFile: path.resolve(__dirname, './tsconfig.json'),
+              configFile: path.resolve(__dirname, './client/tsconfig.json'),
               appendTsSuffixTo: [/\.vue$/]
             }
           }
@@ -101,7 +102,7 @@ const config = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          MiniCssExtractPlugin.loader,
+          // MiniCssExtractPlugin.loader,
           // 将 JS 字符串生成为 style 节点
           "style-loader",
           // 将 CSS 转化成 CommonJS 模块

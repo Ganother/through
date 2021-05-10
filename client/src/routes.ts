@@ -21,7 +21,7 @@ const routes = [
       { path: 'detail', name: 'scene-detail', component: Detail },
       {
         path: "/about",
-        name: "about",
+        name: "scene-about",
         component: About,
       },
     ],

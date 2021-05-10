@@ -1,11 +1,15 @@
 <template>
   <section class="scene-wrapper">
-    <header v-show="needHeader" :class="['main-header', {'header-nav-open': navShow}]">
+    <header
+      v-show="needHeader"
+      :class="['main-header', { 'header-nav-open': navShow }]"
+    >
       <img src="../assets/logo.png" alt="" class="main-logo" />
       <i class="nav-btn" @click="toggleNav"></i>
       <div class="nav-content"></div>
     </header>
     <router-view></router-view>
+    <bottomNav v-show="navShow"></bottomNav>
   </section>
 </template>
 
@@ -13,10 +17,11 @@
 /// <reference path="../scene.d.ts" />
 import { ref, defineComponent, onMounted, Ref, reactive, computed } from 'vue';
 import { useRoute } from 'vue-router';
+import bottomNav from '../components/bottomNav.vue'
 export default defineComponent({
   name: 'IndexScene',
   props: {},
-  components: {},
+  components: { bottomNav },
   setup: () => {
     const routes = useRoute();
     const navShow = ref(false)
@@ -24,6 +29,11 @@ export default defineComponent({
       return (routes.name as string).indexOf('start') == -1
     })
     return { needHeader, navShow };
+  },
+  watch: {
+    '$route': function() {
+      this.navShow = false
+    }
   },
   mounted() { },
   methods: {
