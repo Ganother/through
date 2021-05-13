@@ -25,7 +25,6 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 //   './gqls/topic': gqls_2
 // }
 const files = (<any>require).context("./gqls", false, /\.ts$/);
-console.log(files)
 const m: Module = {}
 enum Method {
   query = 'query',
@@ -75,7 +74,6 @@ m.init = () => new Promise(async (resolve, reject) => {
     // const inters = files[key as keyof typeof files]
     // console.log(inters)
     const inters = files(key).default
-    console.log(inters)
     const map: Module = {}
     const k = key.replace(/(\.\/|\.ts|gqls\/)/g, "")
     m[k] = JSON.parse(JSON.stringify(inters))

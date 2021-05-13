@@ -60,6 +60,11 @@ export default defineComponent({
   .detail-context {
     text-align: left;
     color: #52555a;
+    margin-top: 20px;
+    font-size: 13px;
+    p{
+      margin: 5px 0;
+    }
   }
 }
 </style>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

@@ -36,14 +36,14 @@ export class ArticleService {
         return await this.articleModel.find(query).sort({ time: 'desc' }).limit(10).exec()
     }
 
-    async addArticle(input: ArticleInput) {
+    async addArticle(input: any) {
         if (!input.title) {
             throw new ApolloError('请填写标题', '-2001')
         }
         if (!input.user) {
             throw new ApolloError('请填写昵称', '-2002')
         }
-        if (input.secret) {
+        if (input.secret && !input.checkedAuthFalse) {
             return await this.articleModel.create(Object.assign({ state: stateConfig.online }, input))
         } else {
             return await this.articleModel.create(Object.assign({ state: stateConfig.offline }, input))

@@ -87,56 +87,58 @@ export default defineComponent({
     opacity: 1;
   }
 }
-.topic-title {
-  text-align: center;
-  margin-top: 5px;
-}
-.main-btn {
-  margin-top: 20px;
-  display: block;
-}
-.article-item {
-  margin: 20px 0 40px;
-  animation: opacity 1.6s ease-in-out;
-  animation-fill-mode: both;
-  @for $i from 1 through 4 {
-    &:nth-child(#{$i}) {
-      animation: slideUp .4s ease-in-out;
-      animation-delay: #{($i)*0.4}s;
-      animation-fill-mode: both;
+.through-wrapper {
+  .topic-title {
+    text-align: center;
+    margin-top: 5px;
+  }
+  .main-btn {
+    margin-top: 20px;
+    display: block;
+  }
+  .article-item {
+    margin: 20px 0 40px;
+    animation: opacity 1.6s ease-in-out;
+    animation-fill-mode: both;
+    @for $i from 1 through 4 {
+      &:nth-child(#{$i}) {
+        animation: slideUp 0.4s ease-in-out;
+        animation-delay: #{($i) * 0.4}s;
+        animation-fill-mode: both;
+      }
     }
   }
-}
-.article-title {
-  line-height: 40px;
-  padding-top: 5px;
-  font-size: 16px;
-  margin-bottom: 10px;
-  position: relative;
-  color: #18191b;
-  &:after {
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    width: 2em;
-    height: 2px;
-    background: #18191b;
+  .article-title {
+    line-height: 40px;
+    padding-top: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    position: relative;
+    color: #18191b;
+    &:after {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      width: 2em;
+      height: 2px;
+      background: #18191b;
+    }
   }
-}
-.article-desc {
-  font-size: 14px;
-  text-indent: 2em;
-  color: #52555a;
-  max-height: 42px;
-  overflow: hidden;
-}
-.to-detail {
-  display: block;
-  text-align: left;
-  margin-top: 20px;
-  color: #e9432a;
-  font-size: 14px;
+  .article-desc {
+    font-size: 14px;
+    text-indent: 2em;
+    color: #52555a;
+    max-height: 42px;
+    overflow: hidden;
+  }
+  .to-detail {
+    display: block;
+    text-align: left;
+    margin-top: 20px;
+    color: #e9432a;
+    font-size: 14px;
+  }
 }
 </style>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
  

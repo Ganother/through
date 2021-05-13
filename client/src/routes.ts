@@ -1,13 +1,13 @@
-import Scene from './scenes/index.vue'
-import Start from './scenes/start.vue'
-import Story from './scenes/story.vue'
-import Through from './scenes/through.vue'
-import Edit from './scenes/edit.vue'
-import Detail from './scenes/detail.vue'
-import Managers from './managers/index.vue'
-import ManagersArticleDetail from './managers/articleDetail.vue'
-import ManagersDialogDetail from './managers/dialogDetail.vue'
-import About from './scenes/about.vue'
+const Scene = () => import('./scenes/index.vue')
+const Start = () => import('./scenes/start.vue')
+const Story = () => import('./scenes/story.vue')
+const Through = () => import('./scenes/through.vue')
+const Edit = () => import('./scenes/edit.vue')
+const Detail = () => import('./scenes/detail.vue')
+const Managers = () => import('./managers/index.vue')
+const ManagersArticleDetail = () => import('./managers/articleDetail.vue')
+const ManagersDialogDetail = () => import('./managers/dialogDetail.vue')
+const About = () => import('./scenes/about.vue')
 const routes = [
   {
     path: "/",
