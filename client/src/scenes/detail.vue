@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, reactive, onMounted, Ref } from 'vue';
+import { ref, defineComponent, reactive, onMounted, Ref, onActivated, onDeactivated } from 'vue';
 import api from '../api';
 import stateConfig from '../../../config/state';
 import { Topic, Article } from '../../../graphql';
@@ -34,15 +34,22 @@ export default defineComponent({
           article.title = detail.title
           article.context = detail.context
           article.user = detail.user
+          document.title = detail.title + '-穿行'
         }
       }, (err: any) => {
         erroring.value = true
         console.log(err)
       });
     }
-    onMounted(() => {
+    onActivated(() => {
       getArticle();
     });
+
+    onDeactivated(() => {
+      article.title = ''
+      article.context = ''
+      article.user = ''
+    })
     return { article, erroring };
   },
   methods: {

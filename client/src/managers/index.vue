@@ -81,6 +81,7 @@
 <script lang="ts">
 import { ref, defineComponent, onMounted, Ref } from 'vue';
 import { Article, ArticleInput, Dialog, DialogInput } from '../../../graphql';
+import { loadCss } from '../utils'
 import api from '../api';
 import stateConfig from '../../../config/state';
 export default defineComponent({
@@ -100,7 +101,7 @@ export default defineComponent({
     const topics = ref([]);
     const curTab = ref('article');
     function getData(key: string) {
-      let dataApi, dataSet:any, oriKey:any;
+      let dataApi, dataSet: any, oriKey: any;
       if (key == 'article') {
         dataApi = api.article.getArticleList;
         dataSet = articles;
@@ -122,6 +123,11 @@ export default defineComponent({
     onMounted(() => {
       getData(curTab.value);
     });
+    if (!window.hasLoadedElement) {
+      loadCss('https://unpkg.com/element-plus/lib/theme-chalk/index.css')
+      window.hasLoadedElement = true
+    }
+
     return { articles, dialogs, curTab, getData, topics };
   },
   methods: {
@@ -137,7 +143,7 @@ export default defineComponent({
             this.topicInput,
           ),
         })
-        .then((data:any) => {
+        .then((data: any) => {
           console.log(data);
         });
     },

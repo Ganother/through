@@ -8,8 +8,12 @@
       <i class="nav-btn" @click="toggleNav"></i>
       <div class="nav-content"></div>
     </header>
-    <router-view></router-view>
-    <bottomNav v-show="navShow"></bottomNav>
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
+    <bottomNav :show="navShow"></bottomNav>
   </section>
 </template>
 
@@ -73,6 +77,7 @@ export default defineComponent({
   right: 0;
   top: 30px;
   height: 40px;
+  width: 40px;
   color: #18191b;
   &:before {
     content: '';

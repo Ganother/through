@@ -1,6 +1,6 @@
 <template>
   <section class="through-wrapper">
-    <div class="main-title">穿行</div>
+    <div class="main-title">低语</div>
     <div class="topic-title">#{{ topic.title }}#</div>
     <router-link
       class="main-btn"
@@ -31,7 +31,7 @@ import stateConfig from '../../../config/state';
 import { Topic, Article } from '../../../graphql';
 import SceneManager from './manager';
 export default defineComponent({
-  name: 'Through',
+  name: 'Whisper',
   props: {},
   setup: (props: any) => {
     const topic = reactive<Topic>({
@@ -46,7 +46,7 @@ export default defineComponent({
           let t = data.data.topicList[0];
           const list = data.data.topicList
           for (const item of list) {
-            if (item.desc != 'my') {
+            if (item.desc == 'my') {
               t = item
               break;
             }
@@ -58,7 +58,7 @@ export default defineComponent({
       });
     }
     function getArticles() {
-      api.article.getArticleList({ state: stateConfig.online }).then((data: any) => {
+      api.article.getArticleList({ state: stateConfig.online, topic: topic._id }).then((data: any) => {
         if (data.data.articleList && data.data.articleList.length) {
           articles.value = data.data.articleList
         }

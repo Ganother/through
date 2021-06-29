@@ -67,7 +67,7 @@ export default defineComponent({
         }
         store.setItem('sylvanasSpeaking', JSON.stringify(storeItem))
       }
-    }, 30000)
+    }, 15000)
     return { editor, content, localStorageTimer, timerKey, title, user, secret };
   },
   mounted() {
@@ -135,7 +135,7 @@ export default defineComponent({
         console.log(data)
         if (data.data.addArticle) {
           (this as any).$cpop({ title: '提示', desc: '提交成功了，小王正在看看里面有没有奇怪的东西' })
-          this.$router.push({ name: 'scene-detail', query: { id: data.data.addArticle._id } })
+          (this as any).$router.push({ name: 'scene-detail', query: { id: data.data.addArticle._id } })
           if (window.localStorage) {
             const store = window.localStorage
             store.setItem('sylvanasSpeaking', '')
@@ -169,7 +169,7 @@ export default defineComponent({
     text-align: center;
   }
   .title-input {
-    width: 60%;
+    width: 70%;
   }
   .user-input {
     width: 30%;

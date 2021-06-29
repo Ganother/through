@@ -9,6 +9,11 @@ import './assets/_reset.scss'
 async function initApp() {
   await api.init()
   const router = createRouter({ routes, history: createWebHashHistory() })
+  router.beforeEach((to, from) => {
+    if (to.meta.title) {
+      document.title = to.meta.title as string
+    }
+  })
   const app = createApp(App).use(router)
   elementPlus.components.forEach(component => {
     app.component(component.name, component)
