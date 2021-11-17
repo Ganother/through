@@ -8,7 +8,7 @@
     <router-link class="main-btn" :to="{ name: 'scene-through' }"
       >穿行</router-link
     >
-    <div class="copyright">粤ICP备18113078号-1</div>
+    <a href="https://beian.miit.gov.cn" class="copyright">粤ICP备18113078号</a>
   </section>
 </template>
 
@@ -49,10 +49,12 @@ export default defineComponent({
   .copyright {
     text-align: center;
     font-size: 12px;
-    position: fixed;
-    bottom: 30px;
-    left: 0;
-    right: 0;
+    // position: fixed;
+    // bottom: 30px;
+    // left: 0;
+    // right: 0;
+    display: block;
+    margin-top: 20px;
   }
 }
 </style>

@@ -2,11 +2,11 @@
   <section class="through-wrapper">
     <div class="main-title">穿行</div>
     <div class="topic-title">#{{ topic.title }}#</div>
-    <router-link
+    <!-- <router-link
       class="main-btn"
       :to="{ name: 'scene-edit', query: { topicId: topic._id } }"
       >添加</router-link
-    >
+    > -->
     <div :class="['article-list', { 'show-animation': !inited }]">
       <div class="article-item" v-for="article in articles" :key="article._id">
         <div class="article-title">
@@ -20,11 +20,20 @@
         </router-link>
       </div>
     </div>
+    <a href="https://beian.miit.gov.cn" class="copyright">粤ICP备18113078号</a>
   </section>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, reactive, onMounted, Ref, onActivated, onBeforeMount } from 'vue';
+import {
+  ref,
+  defineComponent,
+  reactive,
+  onMounted,
+  Ref,
+  onActivated,
+  onBeforeMount,
+} from 'vue';
 import { onBeforeRouteUpdate } from 'vue-router';
 import api from '../api';
 import stateConfig from '../../../config/state';
@@ -38,31 +47,35 @@ export default defineComponent({
       _id: '',
       title: '',
     });
-    const inited = ref(false)
+    const inited = ref(false);
     const articles: Ref<Article[]> = ref([]);
     function getTopic() {
-      api.topic.getTopicList({ state: stateConfig.online }).then((data: any) => {
-        if (data.data.topicList && data.data.topicList.length) {
-          let t = data.data.topicList[0];
-          const list = data.data.topicList
-          for (const item of list) {
-            if (item.desc != 'my') {
-              t = item
-              break;
+      api.topic
+        .getTopicList({ state: stateConfig.online })
+        .then((data: any) => {
+          if (data.data.topicList && data.data.topicList.length) {
+            let t = data.data.topicList[0];
+            const list = data.data.topicList;
+            for (const item of list) {
+              if (item.desc != 'my') {
+                t = item;
+                break;
+              }
             }
+            topic._id = t._id;
+            topic.title = t.title;
+            getArticles();
           }
-          topic._id = t._id;
-          topic.title = t.title;
-          getArticles()
-        }
-      });
+        });
     }
     function getArticles() {
-      api.article.getArticleList({ state: stateConfig.online }).then((data: any) => {
-        if (data.data.articleList && data.data.articleList.length) {
-          articles.value = data.data.articleList
-        }
-      });
+      api.article
+        .getArticleList({ state: stateConfig.online, topic: topic._id })
+        .then((data: any) => {
+          if (data.data.articleList && data.data.articleList.length) {
+            articles.value = data.data.articleList;
+          }
+        });
     }
     onMounted(() => {
       getTopic();
@@ -72,18 +85,18 @@ export default defineComponent({
 
   beforeRouteEnter(to, from) {
     if (to.name !== 'scene-detail') {
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
     }
   },
 
   beforeRouteLeave(to, from) {
-    this.inited = to.name === 'scene-detail'
+    this.inited = to.name === 'scene-detail';
   },
   methods: {
     addArticle() {
-      SceneManager.instance.loadScene('Edit', { topicId: this.topic._id })
-    }
-  }
+      SceneManager.instance.loadScene('Edit', { topicId: this.topic._id });
+    },
+  },
 });
 </script>
 
@@ -162,6 +175,15 @@ export default defineComponent({
     color: #e9432a;
     font-size: 14px;
   }
+  .copyright {
+    text-align: center;
+    font-size: 12px;
+    // position: fixed;
+    // bottom: 30px;
+    // left: 0;
+    // right: 0;
+    display: block;
+    margin-top: 20px;
+  }
 }
-</style>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
- 
+</style>
